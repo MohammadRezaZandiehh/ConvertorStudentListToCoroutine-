@@ -19,9 +19,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        viewModel.studentLivedata.observe(this, Observer {student ->
-            Log.d("Mainactivity: ", "onCreate: " )
+        viewModel.studentLivedata.observe(this, Observer { student ->
+            Log.d("Mainactivity: ", "onCreate: ")
         })
 
+        viewModel.errorLiveData.observe(this, Observer {
+            println(it)
+        })
     }
 }
