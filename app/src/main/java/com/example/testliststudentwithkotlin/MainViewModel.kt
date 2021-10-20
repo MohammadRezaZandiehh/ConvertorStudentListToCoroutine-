@@ -1,27 +1,23 @@
 package com.example.testliststudentwithkotlin
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 
 
 class MainViewModel @ViewModelInject constructor(
     private val apiService: ApiService
 ) : ViewModel() {
-    val studentLiveData = MutableLiveData<List<Student>>()
-    private val errorLiveData = MutableLiveData<String>()
-
-    init {
-        viewModelScope.launch {
-            val students = apiService.getStudent()
-            studentLiveData.value = students
-        }
+    val studentLivedata: LiveData<List<Student>> = liveData {
+        val students = apiService.getStudent()
+        emit(students)                                                                              // send students to MainActivity's observers.
     }
-//    fun getApi() {
+
+//    init {
 //        viewModelScope.launch {
-//            apiService.getStudent()
+//            val students = apiService.getStudent()
+//            studentLiveData.value = students
 //        }
 //    }
+
 }
